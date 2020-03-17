@@ -1,7 +1,6 @@
 package com.yalematta.battleship.ui.setup
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -9,12 +8,18 @@ import androidx.appcompat.app.AppCompatActivity
 import com.yalematta.battleship.R
 import com.yalematta.battleship.data.*
 import com.yalematta.battleship.internal.FieldOccupiedException
+import com.yalematta.battleship.internal.getViewModel
 import com.yalematta.battleship.ui.setup.adapter.BoardGridAdapter
 import com.yalematta.battleship.ui.setup.adapter.ShipListAdapter
 import kotlinx.android.synthetic.main.activity_setup.*
+import kotlinx.coroutines.*
 import kotlin.math.floor
 
 class SetupActivity : AppCompatActivity(), Animation.AnimationListener {
+
+    private val viewModel by lazy {
+        getViewModel { SetupViewModel() }
+    }
 
     private lateinit var board: Board
     private lateinit var shipAdapter: ShipListAdapter
@@ -25,6 +30,9 @@ class SetupActivity : AppCompatActivity(), Animation.AnimationListener {
     private var shipDirection = Orientation.VERTICAL
 
     private val player = Player("Layale", 0)
+
+    private val job = SupervisorJob()
+    private val scope = CoroutineScope(Dispatchers.Default + job)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,10 +56,10 @@ class SetupActivity : AppCompatActivity(), Animation.AnimationListener {
         }
 
         rotateButton.setOnClickListener {
-            if (shipDirection == Orientation.VERTICAL)
-                shipDirection = Orientation.HORIZONTAL
+            shipDirection = if (shipDirection == Orientation.VERTICAL)
+                Orientation.HORIZONTAL
             else
-                shipDirection = Orientation.VERTICAL
+                Orientation.VERTICAL
             selectedShip?.orientation = shipDirection
         }
 
@@ -75,11 +83,13 @@ class SetupActivity : AppCompatActivity(), Animation.AnimationListener {
 
     private fun initShips() {
         shipList = arrayListOf()
-        shipList.add(Ship(ShipType.CARRIER))
-        shipList.add(Ship(ShipType.CRUISER))
-        shipList.add(Ship(ShipType.DESTROYER))
-        shipList.add(Ship(ShipType.SUBMARINE))
-        shipList.add(Ship(ShipType.BATTLESHIP))
+        shipList.apply {
+            add(Ship(ShipType.CARRIER))
+            add(Ship(ShipType.CRUISER))
+            add(Ship(ShipType.DESTROYER))
+            add(Ship(ShipType.SUBMARINE))
+            add(Ship(ShipType.BATTLESHIP))
+        }
 
         shipAdapter = ShipListAdapter(this, shipList)
 
@@ -134,9 +144,15 @@ class SetupActivity : AppCompatActivity(), Animation.AnimationListener {
         animBlink.setAnimationListener(this@SetupActivity)
 
         view.startAnimation(animBlink)
-        Handler().postDelayed(Runnable {
+        scope.launch {
+            delay(500)
             view.clearAnimation()
-        }, 500)
+        }
+    }
+
+    override fun onDestroy() {
+        scope.cancel()
+        super.onDestroy()
     }
 
     override fun onAnimationRepeat(animation: Animation?) {
