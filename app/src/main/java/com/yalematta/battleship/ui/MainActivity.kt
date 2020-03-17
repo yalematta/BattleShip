@@ -1,7 +1,8 @@
-package com.yalematta.battleship
+package com.yalematta.battleship.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.yalematta.battleship.R
 
 class MainActivity : AppCompatActivity() {
 
