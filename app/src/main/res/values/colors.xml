@@ -3,4 +3,12 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <color name="colorWater">#99c2e1</color>
+    <color name="colorBorder">#25567b</color>
+    <color name="colorSelected">#808080</color>
+
+    <color name="colorHit">#f60119</color>
+    <color name="colorMissed">#efefef</color>
+
 </resources>
