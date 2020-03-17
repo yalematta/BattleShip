@@ -73,4 +73,35 @@ data class Player(var playerName: String, private var score: Int = 0) {
             }
         }
     }
+
+    // Method to place the Ship manually on the board
+    fun tryPlaceShip(theBoard: Board, theShip: Ship, startPoint: Coordinate) {
+
+        var coord: Coordinate
+
+        for (i in 0 until theShip.shipType.size) {
+            coord = if (theShip.orientation == Orientation.VERTICAL) {
+                Coordinate(
+                    startPoint.x + i,
+                    startPoint.y
+                )
+            } else {
+                Coordinate(
+                    startPoint.x,
+                    startPoint.y + i
+                )
+            }
+            theShip.coords.add(coord)
+        }
+
+        //Test if ship can be placed, if true, place ship
+        try {
+            if (theBoard.canPlaceShip(theShip)) {
+                theBoard.placeShip(theShip)
+            }
+        } catch (foe: FieldOccupiedException) {
+            throw FieldOccupiedException(startPoint, foe.toString())
+        }
+    }
+
 }

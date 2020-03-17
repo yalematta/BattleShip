@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">BattleShip</string>
 
-
-    <string name="get_started">Get Started</string>
     <string name="randomly">Randomly</string>
+    <string name="manually">Manually</string>
+    <string name="start_game">Start Game</string>
+    <string name="get_started">Get Started</string>
+    <string name="rotate_ship">Rotate Ship</string>
 
 </resources>

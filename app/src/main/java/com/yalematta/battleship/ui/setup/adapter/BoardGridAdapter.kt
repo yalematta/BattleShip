@@ -1,4 +1,4 @@
-package com.yalematta.battleship.ui.setup
+package com.yalematta.battleship.ui.setup.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
