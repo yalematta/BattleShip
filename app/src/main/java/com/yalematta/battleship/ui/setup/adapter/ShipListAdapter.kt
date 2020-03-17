@@ -10,11 +10,19 @@ import android.widget.TextView
 import com.yalematta.battleship.R
 import com.yalematta.battleship.data.Ship
 
-class ShipListAdapter(private val context: Context, private val dataSource: ArrayList<Ship>): BaseAdapter(){
+class ShipListAdapter(private val context: Context): BaseAdapter(){
 
     var selectedPosition: Int = -1
+    private var dataSource = arrayListOf<Ship>()
 
-    private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    private val inflater: LayoutInflater =
+        context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+    fun refreshShipList(shipList: ArrayList<Ship>) {
+        dataSource.clear()
+        dataSource.addAll(shipList)
+        notifyDataSetChanged()
+    }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
@@ -44,5 +52,4 @@ class ShipListAdapter(private val context: Context, private val dataSource: Arra
     override fun getCount(): Int {
         return dataSource.size
     }
-
 }

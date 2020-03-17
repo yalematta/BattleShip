@@ -5,145 +5,136 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.yalematta.battleship.R
-import com.yalematta.battleship.data.*
-import com.yalematta.battleship.internal.FieldOccupiedException
+import com.yalematta.battleship.data.Board
+import com.yalematta.battleship.data.Ship
 import com.yalematta.battleship.internal.getViewModel
 import com.yalematta.battleship.ui.setup.adapter.BoardGridAdapter
 import com.yalematta.battleship.ui.setup.adapter.ShipListAdapter
 import kotlinx.android.synthetic.main.activity_setup.*
 import kotlinx.coroutines.*
-import kotlin.math.floor
 
 class SetupActivity : AppCompatActivity(), Animation.AnimationListener {
+
+    private lateinit var shipAdapter: ShipListAdapter
+    private lateinit var boardAdapter: BoardGridAdapter
+
+    private val job = SupervisorJob()
+    private val scope = CoroutineScope(Dispatchers.Default + job)
 
     private val viewModel by lazy {
         getViewModel { SetupViewModel() }
     }
 
-    private lateinit var board: Board
-    private lateinit var shipAdapter: ShipListAdapter
-    private lateinit var boardAdapter: BoardGridAdapter
-
-    private var selectedShip: Ship? = null
-    private lateinit var shipList: ArrayList<Ship>
-    private var shipDirection = Orientation.VERTICAL
-
-    private val player = Player("Layale", 0)
-
-    private val job = SupervisorJob()
-    private val scope = CoroutineScope(Dispatchers.Default + job)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setup)
 
-        initBoard()
-
-        initShips()
+        initObservers()
+        initBoardAdapter()
+        initShipAdapter()
 
         randomButton.setOnClickListener {
-            generateRandomShips()
-            randomButton.visibility = View.GONE;
-            manualButton.visibility = View.GONE;
-            startButton.visibility = View.VISIBLE;
+            viewModel.generateRandomShips()
+            startButton.visibility = View.VISIBLE
         }
 
         manualButton.setOnClickListener {
+            viewModel.initShips()
             randomButton.visibility = View.GONE;
             manualButton.visibility = View.GONE;
-            shipsLayout.visibility = View.VISIBLE;
+            viewModel.shipListVisibility = true
+            updateVisibility()
         }
 
         rotateButton.setOnClickListener {
-            shipDirection = if (shipDirection == Orientation.VERTICAL)
-                Orientation.HORIZONTAL
-            else
-                Orientation.VERTICAL
-            selectedShip?.orientation = shipDirection
+            viewModel.rotateShip()
         }
 
-        startButton.setOnClickListener{
+        startButton.setOnClickListener {
             // TODO Show 2 Boards on Game Screen
+        }
+
+    }
+
+    private fun initObservers() {
+        viewModel.apply {
+            refreshBoardLiveData.observe(this@SetupActivity,
+                Observer { board -> refreshBoard(board) })
+            shipsLiveData.observe(this@SetupActivity,
+                Observer { ships -> addDataToShipAdapter(ships) })
+            blinkLiveData.observe(this@SetupActivity,
+                Observer { view -> setBlinkAnimation(view) })
+            refreshShipsLiveData.observe(this@SetupActivity,
+                Observer { shipList -> refreshShips(shipList) })
         }
     }
 
-    private fun initBoard() {
-        board = Board()
+    override fun onResume() {
+        super.onResume()
+        updateVisibility()
+    }
 
+    private fun updateVisibility() {
+        shipsLayout.visibility = if (viewModel.shipListVisibility) View.VISIBLE else View.GONE
+    }
+
+    private fun refreshBoard(board: Board) {
+        boardAdapter.refresh(board.getFieldStatus())
+        randomButton.visibility = View.GONE;
+        manualButton.visibility = View.GONE;
+    }
+
+    private fun initBoardAdapter() {
         boardAdapter =
             BoardGridAdapter(
                 this,
-                board.getFieldStatus()
+                viewModel.board.getFieldStatus()
             )
             { view: View, position: Int -> handleBoardClick(view, position) }
 
         boardGridView.adapter = boardAdapter
     }
 
-    private fun initShips() {
-        shipList = arrayListOf()
-        shipList.apply {
-            add(Ship(ShipType.CARRIER))
-            add(Ship(ShipType.CRUISER))
-            add(Ship(ShipType.DESTROYER))
-            add(Ship(ShipType.SUBMARINE))
-            add(Ship(ShipType.BATTLESHIP))
+
+    private fun addDataToShipAdapter(ships: ArrayList<Ship>) {
+        shipAdapter.refreshShipList(ships)
+    }
+
+    private fun refreshShips(shipList: ArrayList<Ship>) {
+        shipAdapter.selectedPosition = -1
+        shipAdapter.refreshShipList(shipList)
+
+        if (viewModel.isShipListEmpty()) {
+            rotateButton.visibility = View.GONE
+            startButton.visibility = View.VISIBLE
         }
+    }
 
-        shipAdapter = ShipListAdapter(this, shipList)
-
+    private fun initShipAdapter() {
+        shipAdapter = ShipListAdapter(this)
         shipListView.adapter = shipAdapter
 
-        shipListView.setOnItemClickListener { _, view, position, _ ->
-            selectedShip = shipAdapter.getItem(position) as Ship
-            selectedShip?.orientation = shipDirection
+        shipListView.setOnItemClickListener { _, _, position, _ ->
+            val selectedShip = shipAdapter.getItem(position) as Ship
+            viewModel.selectedShip(selectedShip)
             shipAdapter.selectedPosition = position;
             shipAdapter.notifyDataSetChanged();
         }
     }
 
     private fun handleBoardClick(view: View, position: Int) {
-
-        val x: Int = floor((position / board.boardX).toDouble()).toInt()
-        val y: Int = position % board.boardX
-
-        if (selectedShip != null) {
-
-            val ship = selectedShip
-
-            try {
-                player.tryPlaceShip(board, ship!!, Coordinate(x, y))
-                boardAdapter.refresh(board.getFieldStatus())
-
-                selectedShip = null
-                shipList.remove(ship)
-                shipAdapter.selectedPosition = -1
-                shipAdapter.notifyDataSetChanged()
-
-            } catch (foe: FieldOccupiedException) {
-                setBlinkAnimation(view)
-                ship!!.coords.clear()
-            }
-        }
-
-        if (shipList.isEmpty()){
-            rotateButton.visibility = View.GONE
-            startButton.visibility = View.VISIBLE
-        }
-    }
-
-    private fun generateRandomShips() {
-        board = Board()
-        player.generateShips(board)
-        boardAdapter.refresh(board.getFieldStatus())
+        viewModel.handleBoardClick(view, position)
     }
 
     private fun setBlinkAnimation(view: View) {
-        val animBlink: Animation = AnimationUtils.loadAnimation(this@SetupActivity, R.anim.blink_in);
+        val animBlink: Animation =
+            AnimationUtils.loadAnimation(this@SetupActivity, R.anim.blink_in);
         animBlink.setAnimationListener(this@SetupActivity)
 
         view.startAnimation(animBlink)
+
         scope.launch {
             delay(500)
             view.clearAnimation()
