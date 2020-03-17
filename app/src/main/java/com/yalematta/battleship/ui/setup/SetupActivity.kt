@@ -1,7 +1,10 @@
 package com.yalematta.battleship.ui.setup
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.yalematta.battleship.R
 import com.yalematta.battleship.data.*
@@ -11,7 +14,7 @@ import com.yalematta.battleship.ui.setup.adapter.ShipListAdapter
 import kotlinx.android.synthetic.main.activity_setup.*
 import kotlin.math.floor
 
-class SetupActivity : AppCompatActivity() {
+class SetupActivity : AppCompatActivity(), Animation.AnimationListener {
 
     private lateinit var board: Board
     private lateinit var shipAdapter: ShipListAdapter
@@ -109,7 +112,7 @@ class SetupActivity : AppCompatActivity() {
                 shipAdapter.notifyDataSetChanged()
 
             } catch (foe: FieldOccupiedException) {
-
+                setBlinkAnimation(view)
                 ship!!.coords.clear()
             }
         }
@@ -124,5 +127,27 @@ class SetupActivity : AppCompatActivity() {
         board = Board()
         player.generateShips(board)
         boardAdapter.refresh(board.getFieldStatus())
+    }
+
+    private fun setBlinkAnimation(view: View) {
+        val animBlink: Animation = AnimationUtils.loadAnimation(this@SetupActivity, R.anim.blink_in);
+        animBlink.setAnimationListener(this@SetupActivity)
+
+        view.startAnimation(animBlink)
+        Handler().postDelayed(Runnable {
+            view.clearAnimation()
+        }, 500)
+    }
+
+    override fun onAnimationRepeat(animation: Animation?) {
+
+    }
+
+    override fun onAnimationEnd(animation: Animation?) {
+
+    }
+
+    override fun onAnimationStart(animation: Animation?) {
+
     }
 }
