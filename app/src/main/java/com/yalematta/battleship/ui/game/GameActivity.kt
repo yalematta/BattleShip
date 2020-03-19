@@ -124,7 +124,6 @@ class GameActivity : AppCompatActivity() {
             val y: Int = position % viewModel.opponentBoard.boardX
 
             viewModel.isOpponentBoardEnabled = false
-
             viewModel.sendCoordinate(x, y, viewModel.roleName)
         }
     }
