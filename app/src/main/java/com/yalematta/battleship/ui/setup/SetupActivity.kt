@@ -41,6 +41,7 @@ class SetupActivity : AppCompatActivity(), Animation.AnimationListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setup)
+        title = getString(R.string.place_ships)
 
         initObservers()
         initBoardAdapter()

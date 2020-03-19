@@ -25,6 +25,8 @@ class RoomsActivity : AppCompatActivity() {
     var roomName: String = ""
     var roleName: String = ""
 
+    private lateinit var roomsListener: ValueEventListener
+
     private lateinit var database: FirebaseDatabase
     private lateinit var roomsRef: DatabaseReference
     private lateinit var roomRef: DatabaseReference
@@ -59,7 +61,7 @@ class RoomsActivity : AppCompatActivity() {
 
         roomsRef = database.getReference(FirebaseSource.ROOMS_TABLE)
 
-        val roomsListener = object : ValueEventListener {
+        roomsListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 roomsList.clear()
 
@@ -140,5 +142,10 @@ class RoomsActivity : AppCompatActivity() {
             }
         }
         roomRef.addValueEventListener(roomListener)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        roomsRef.removeEventListener(roomsListener)
     }
 }

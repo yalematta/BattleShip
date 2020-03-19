@@ -37,7 +37,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/randomly" />
+            android:text="@string/randomly"
+            app:icon="@drawable/ic_random"/>
 
         <Button
             android:id="@+id/manualButton"
@@ -45,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
-            android:text="@string/manually" />
+            android:icon="@drawable/ic_manual"/>
 
         <LinearLayout
             android:id="@+id/shipsLayout"
@@ -82,7 +83,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/start_game" />
+            android:text="@string/start_game"
+            app:icon="@drawable/ic_play_game"/>
 
     </LinearLayout>
 

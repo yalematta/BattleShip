@@ -30,5 +30,6 @@
     <string name="not_your_turn">It\'s not your turn yet!</string>
     <string name="game_over_subtitle">Better luck next time...</string>
     <string name="you_won_subtitle">You destroyed all the ships...</string>
+    <string name="place_ships">Place Your Ships</string>
 
 </resources>

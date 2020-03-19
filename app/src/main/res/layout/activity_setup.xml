@@ -35,9 +35,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/randomly" />
+            android:text="@string/randomly"
+            app:icon="@drawable/ic_random"/>
 
         <Button
+            app:icon="@drawable/ic_manual"
             android:id="@+id/manualButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -80,7 +82,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/start_game" />
+            android:text="@string/start_game"
+            app:icon="@drawable/ic_play_game"/>
 
     </LinearLayout>
 

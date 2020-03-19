@@ -69,6 +69,7 @@ class GameActivity : AppCompatActivity() {
         addShotListener()
         addScoreListener()
         addShotBackListener()
+
     }
 
     private fun initObservers() {
@@ -130,7 +131,7 @@ class GameActivity : AppCompatActivity() {
 
     private fun addShotListener() {
 
-        val coordinateListener = object : ValueEventListener {
+        viewModel.shotListener = object : ValueEventListener {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
@@ -164,7 +165,7 @@ class GameActivity : AppCompatActivity() {
                 this@GameActivity.viewModel.shotRef.setValue(viewModel.shot)
             }
         }
-        this.viewModel.shotRef.addValueEventListener(coordinateListener)
+        this.viewModel.shotRef.addValueEventListener(viewModel.shotListener)
     }
 
     private fun shotCoordinatesReceived(dataSnapshot: DataSnapshot) {
@@ -193,7 +194,7 @@ class GameActivity : AppCompatActivity() {
 
     private fun addShotBackListener() {
 
-        val coordinateListener = object : ValueEventListener {
+        viewModel.shotBackListener = object : ValueEventListener {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
@@ -222,12 +223,12 @@ class GameActivity : AppCompatActivity() {
                 this@GameActivity.viewModel.shotRef.setValue(viewModel.shot)
             }
         }
-        this.viewModel.shotBackRef.addValueEventListener(coordinateListener)
+        this.viewModel.shotBackRef.addValueEventListener(viewModel.shotBackListener)
     }
 
     private fun addScoreListener() {
 
-        val scoreListener = object : ValueEventListener {
+        viewModel.scoreListener = object : ValueEventListener {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
@@ -255,7 +256,7 @@ class GameActivity : AppCompatActivity() {
                 this@GameActivity.viewModel.scoreRef.setValue(score)
             }
         }
-        this.viewModel.scoreRef.addValueEventListener(scoreListener)
+        this.viewModel.scoreRef.addValueEventListener(viewModel.scoreListener)
     }
 
     private fun setScoreReceived(dataSnapshot: DataSnapshot) {
@@ -279,11 +280,8 @@ class GameActivity : AppCompatActivity() {
             viewModel.myPlayer.score = 0
             viewModel.vsPlayer.score = 0
 
-            viewModel.clearRooms()
-
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this@GameActivity, MainActivity::class.java)
             startActivity(intent)
-            finish()
         }
 
         builder.show()
