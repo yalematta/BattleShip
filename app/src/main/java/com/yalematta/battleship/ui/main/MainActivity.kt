@@ -11,10 +11,17 @@ import com.yalematta.battleship.R
 import com.yalematta.battleship.data.firebase.FirebaseSource
 import com.yalematta.battleship.internal.getViewModel
 import com.yalematta.battleship.ui.login.LoginActivity
-import com.yalematta.battleship.ui.setup.SetupActivity
+import com.yalematta.battleship.ui.rooms.RoomsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        const val ME_PLAYER = "ME_PLAYER"
+        const val ROOM_NAME = "ROOM_NAME"
+        const val ROLE_NAME = "ROLE_NAME"
+        const val VS_PLAYER = "VS_PLAYER"
+    }
 
     private val viewModel by lazy {
         getViewModel { MainViewModel() }
@@ -33,8 +40,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        continueButton.setOnClickListener {
-            val intent = Intent(this, SetupActivity::class.java)
+        selectRoomButton.setOnClickListener {
+            val intent = Intent(this, RoomsActivity::class.java)
+            intent.putExtra(ME_PLAYER, viewModel.getMyPlayer())
             startActivity(intent)
         }
 
@@ -62,13 +70,13 @@ class MainActivity : AppCompatActivity() {
             welcomeView.text = String.format("Welcome - %s", currentUser.displayName)
             getStartedButton.visibility = View.GONE
             logoutButton.visibility = View.VISIBLE
-            continueButton.visibility = View.VISIBLE
+            selectRoomButton.visibility = View.VISIBLE
 
         } else {
 
             getStartedButton.visibility = View.VISIBLE
             logoutButton.visibility = View.GONE
-            continueButton.visibility = View.GONE
+            selectRoomButton.visibility = View.GONE
         }
     }
 }

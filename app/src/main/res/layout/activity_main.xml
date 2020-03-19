@@ -23,11 +23,11 @@
             android:text="@string/get_started" />
 
         <Button
-            android:id="@+id/continueButton"
+            android:id="@+id/selectRoomButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Continue to Play"
+            android:text="@string/choose_opponent"
             android:visibility="gone" />
 
     </FrameLayout>

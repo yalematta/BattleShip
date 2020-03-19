@@ -10,10 +10,17 @@
     <string name="error">Error</string>
     <string name="logout">Logout</string>
     <string name="Welcome">Welcome</string>
+    <string name="choose_opponent">Choose Opponent</string>
     <string name="error_sign_in">Unable to Sign in</string>
     <string name="sign_in_email">Sign in with email</string>
     <string name="user_signed_out">User has signed out!</string>
     <string name="success_sign_in">Successfully signed in</string>
     <string name="user_already_in">User already signed in, must sign out first</string>
+
+    <string name="create_room">Create Room</string>
+    <string name="creating_room">Creating Room</string>
+    <string name="success_join_room">Successfully joined room</string>
+    <string name="success_create_room">Successfully created room</string>
+
 
 </resources>
