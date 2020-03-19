@@ -10,10 +10,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.yalematta.battleship.R
 import com.yalematta.battleship.data.models.Board
+import com.yalematta.battleship.data.models.Player
 import com.yalematta.battleship.data.models.Role
 import com.yalematta.battleship.data.models.Ship
 import com.yalematta.battleship.internal.getViewModel
@@ -43,20 +43,17 @@ class GameActivity : AppCompatActivity() {
     private lateinit var opponentBoardAdapter: BoardGridAdapter
 
     private val viewModel by lazy {
-        getViewModel { GameViewModel() }
+        getViewModel {
+            val roomName = intent.getStringExtra(ROOM_NAME)
+            val roleName = intent.getStringExtra(ROLE_NAME)
+            val myPlayer = intent.getParcelableExtra(ME_PLAYER) as Player
+            val vsPlayer = intent.getParcelableExtra(VS_PLAYER) as Player
+            GameViewModel(roomName, roleName, myPlayer, vsPlayer) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
-
-        viewModel.apply {
-            database = FirebaseDatabase.getInstance()
-            roomName = intent.getStringExtra(ROOM_NAME)
-            roleName = intent.getStringExtra(ROLE_NAME)
-            myPlayer = intent.getParcelableExtra(ME_PLAYER)
-            vsPlayer = intent.getParcelableExtra(VS_PLAYER)
-        }
 
         initObservers()
 
@@ -99,7 +96,6 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun initOpponentBoardAdapter() {
-        viewModel.opponentBoard = Board()
 
         opponentBoardAdapter = BoardGridAdapter(this, viewModel.opponentBoard.fieldStatus)
         { view: View, position: Int -> handleBoardClick(view, position) }
@@ -179,7 +175,7 @@ class GameActivity : AppCompatActivity() {
 
             viewModel.vsPlayer.addScore(points)
             viewModel.score = viewModel.vsPlayer.score
-            scoreText.text = score
+            scoreText.text =  viewModel.score.toString()
 
             if (viewModel.myBoard.isGameOver()) {
                 viewModel.sendScore(viewModel.score, viewModel.roleName, 1)

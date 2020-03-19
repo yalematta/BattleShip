@@ -12,20 +12,14 @@ import com.yalematta.battleship.data.models.Player
 import com.yalematta.battleship.data.models.Role
 import com.yalematta.battleship.ui.game.GameActivity.Companion.role
 
-class GameViewModel : ViewModel() {
+class GameViewModel(var roomName: String, var roleName: String, var myPlayer: Player, var vsPlayer: Player) : ViewModel() {
 
     lateinit var myBoard: Board
-    lateinit var opponentBoard: Board
-
-    lateinit var myPlayer: Player
-    lateinit var vsPlayer: Player
+    var opponentBoard: Board = Board()
 
     var isOpponentBoardEnabled = true
 
-    lateinit var roomName: String
-    lateinit var roleName: String
-
-    lateinit var database: FirebaseDatabase
+    var database: FirebaseDatabase = FirebaseDatabase.getInstance()
 
     lateinit var shot: Coordinate
     lateinit var shotRef: DatabaseReference

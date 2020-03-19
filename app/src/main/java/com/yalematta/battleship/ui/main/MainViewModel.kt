@@ -7,7 +7,7 @@ import com.yalematta.battleship.data.models.Player
 class MainViewModel : ViewModel() {
 
     fun getMyPlayer(): Player {
-        val currentUser = FirebaseSource().currentUser()
+        val currentUser = FirebaseSource.currentUser()
         return Player(currentUser?.displayName.toString(), 0)
     }
 }

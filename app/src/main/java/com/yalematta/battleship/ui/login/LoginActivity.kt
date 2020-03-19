@@ -28,7 +28,7 @@ class LoginActivity : AppCompatActivity() {
 
         buttonSignIn.setOnClickListener {
 
-            if (FirebaseSource().currentUser() != null) {
+            if (FirebaseSource.currentUser() != null) {
                 Toast.makeText(applicationContext, getString(R.string.user_already_in), Toast.LENGTH_SHORT).show()
                 // already signed in
 
@@ -52,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
             // Successfully signed in
             if (resultCode == Activity.RESULT_OK) {
                 // Successfully signed in
-                val user = FirebaseSource().currentUser()
+                val user = FirebaseSource.currentUser()
 
                 addPlayer(user)
             }

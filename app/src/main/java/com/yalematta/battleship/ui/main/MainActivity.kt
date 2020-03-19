@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     public override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
-        updateUI(FirebaseSource().currentUser())
+        updateUI(FirebaseSource.currentUser())
     }
 
     private fun updateUI(currentUser: FirebaseUser?) {

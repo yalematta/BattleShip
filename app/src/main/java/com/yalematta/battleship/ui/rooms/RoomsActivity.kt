@@ -38,7 +38,7 @@ class RoomsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_rooms)
         title = getString(R.string.choose_opponent)
 
-        database = FirebaseSource().database
+        database = FirebaseSource.database
         myPlayer = intent.getParcelableExtra(ME_PLAYER)
 
         createRoomButton.setOnClickListener {
