@@ -1,6 +1,6 @@
 package com.yalematta.battleship.internal
 
-import com.yalematta.battleship.data.Coordinate
+import com.yalematta.battleship.data.models.Coordinate
 
 open class BattleShipException (message: String = ""): Exception(message)
 

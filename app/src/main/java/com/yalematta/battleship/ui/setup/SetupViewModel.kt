@@ -3,12 +3,13 @@ package com.yalematta.battleship.ui.setup
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.yalematta.battleship.data.*
+import com.yalematta.battleship.data.models.*
 import com.yalematta.battleship.internal.FieldOccupiedException
 
 class SetupViewModel: ViewModel() {
 
-    var board: Board = Board()
+    var board: Board =
+        Board()
     var shipList: ArrayList<Ship> = arrayListOf()
 
     private val player = Player("Layale", 0)
@@ -63,7 +64,9 @@ class SetupViewModel: ViewModel() {
             val ship = selectedShip
 
             try {
-                player.tryPlaceShip(board, ship!!, Coordinate(x, y))
+                player.tryPlaceShip(board, ship!!,
+                    Coordinate(x, y)
+                )
 
                 shipList.remove(ship)
                 selectedShip = null

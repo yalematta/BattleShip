@@ -7,8 +7,8 @@ import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.yalematta.battleship.R
-import com.yalematta.battleship.data.Board
-import com.yalematta.battleship.data.Ship
+import com.yalematta.battleship.data.models.Board
+import com.yalematta.battleship.data.models.Ship
 import com.yalematta.battleship.internal.getViewModel
 import com.yalematta.battleship.ui.setup.adapter.BoardGridAdapter
 import com.yalematta.battleship.ui.setup.adapter.ShipListAdapter

@@ -1,4 +1,4 @@
-package com.yalematta.battleship.data
+package com.yalematta.battleship.data.models
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

@@ -1,4 +1,4 @@
-package com.yalematta.battleship.data
+package com.yalematta.battleship.data.models
 
 import android.os.Parcelable
 import com.yalematta.battleship.internal.FieldOccupiedException
