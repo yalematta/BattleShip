@@ -131,7 +131,7 @@ class GameActivity : AppCompatActivity() {
 
     private fun addShotListener() {
 
-        viewModel.shotListener = object : ValueEventListener {
+        var shotListener = object : ValueEventListener {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
@@ -165,7 +165,7 @@ class GameActivity : AppCompatActivity() {
                 this@GameActivity.viewModel.shotRef.setValue(viewModel.shot)
             }
         }
-        this.viewModel.shotRef.addValueEventListener(viewModel.shotListener)
+        this.viewModel.shotRef.addValueEventListener(shotListener)
     }
 
     private fun shotCoordinatesReceived(dataSnapshot: DataSnapshot) {
@@ -194,7 +194,7 @@ class GameActivity : AppCompatActivity() {
 
     private fun addShotBackListener() {
 
-        viewModel.shotBackListener = object : ValueEventListener {
+        var shotBackListener = object : ValueEventListener {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
@@ -223,12 +223,12 @@ class GameActivity : AppCompatActivity() {
                 this@GameActivity.viewModel.shotRef.setValue(viewModel.shot)
             }
         }
-        this.viewModel.shotBackRef.addValueEventListener(viewModel.shotBackListener)
+        this.viewModel.shotBackRef.addValueEventListener(shotBackListener)
     }
 
     private fun addScoreListener() {
 
-        viewModel.scoreListener = object : ValueEventListener {
+        var scoreListener = object : ValueEventListener {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
@@ -256,7 +256,7 @@ class GameActivity : AppCompatActivity() {
                 this@GameActivity.viewModel.scoreRef.setValue(score)
             }
         }
-        this.viewModel.scoreRef.addValueEventListener(viewModel.scoreListener)
+        this.viewModel.scoreRef.addValueEventListener(scoreListener)
     }
 
     private fun setScoreReceived(dataSnapshot: DataSnapshot) {

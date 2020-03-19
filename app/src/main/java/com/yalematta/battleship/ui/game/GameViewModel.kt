@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.yalematta.battleship.data.firebase.FirebaseSource
 import com.yalematta.battleship.data.models.Board
 import com.yalematta.battleship.data.models.Coordinate
@@ -36,10 +35,6 @@ class GameViewModel : ViewModel() {
 
     var score: Int = 0
     lateinit var scoreRef: DatabaseReference
-
-    lateinit var shotListener: ValueEventListener
-    lateinit var scoreListener: ValueEventListener
-    lateinit var shotBackListener: ValueEventListener
 
     val refreshMyBoardLiveData = MutableLiveData<Board>()
     val refreshOpponentBoardLiveData = MutableLiveData<Board>()
