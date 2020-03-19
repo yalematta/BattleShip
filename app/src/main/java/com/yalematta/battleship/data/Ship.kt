@@ -1,9 +1,13 @@
 package com.yalematta.battleship.data
 
-class Ship(val shipType: ShipType, var orientation: Orientation = Orientation.VERTICAL) {
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
-    // An array list to store this ships coordinates
-    var coords: ArrayList<Coordinate> = arrayListOf()
+@Parcelize
+class Ship(val shipType: ShipType,
+           var orientation: Orientation = Orientation.VERTICAL,
+           // An array list for storing this ships coordinates
+           var coords: ArrayList<Coordinate> = arrayListOf()) : Parcelable {
 
     // Registers that this ship has been hit
     fun shipHit(coord: Coordinate?): Unit {

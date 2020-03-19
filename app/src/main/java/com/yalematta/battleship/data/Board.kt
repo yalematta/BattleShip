@@ -1,22 +1,19 @@
 package com.yalematta.battleship.data
 
+import android.os.Parcelable
 import com.yalematta.battleship.internal.FieldOccupiedException
 import com.yalematta.battleship.internal.InvalidShotException
+import kotlinx.android.parcel.Parcelize
 
-class Board(var boardX: Int = 10, var boardY: Int = 10) {
-
-    // An ArrayList to store and keep track of ships, their points, names and status (hit or sunk)
-    var fleet: ArrayList<Ship> = arrayListOf()
-
-    // 0: empty, not hit / 1: empty, but hit / 2: not empty, not hit / 3: not empty, but hit
-    private var fieldStatus = Array(boardX) { _ -> Array(boardY) { _ -> 0} }
+@Parcelize
+class Board(var boardX: Int = 10, var boardY: Int = 10,
+            // An ArrayList for storing the ships to keep track of ships, their points, names and status (hit or sunk)
+            var fleet: ArrayList<Ship> = arrayListOf(),
+            // 0: empty, not hit / 1: empty, but hit / 2: not empty, not hit / 3: not empty, but hit
+            var fieldStatus: Array<Array<Int>> = Array(boardX) { _ -> Array(boardY) { _ -> 0} }) : Parcelable {
 
     fun getFieldStatusItem(x: Int, y: Int): Int {
         return fieldStatus[x][y]
-    }
-
-    fun getFieldStatus(): Array<Array<Int>> {
-        return fieldStatus
     }
 
     // Check if it's OK to place ship
