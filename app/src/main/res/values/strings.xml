@@ -22,5 +22,8 @@
     <string name="success_join_room">Successfully joined room</string>
     <string name="success_create_room">Successfully created room</string>
 
+    <string name="me">Me</string>
+    <string name="player">Player</string>
+
 
 </resources>
