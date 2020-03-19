@@ -7,4 +7,12 @@
     <string name="get_started">Get Started</string>
     <string name="rotate_ship">Rotate Ship</string>
 
+    <string name="error">Error</string>
+    <string name="error_sign_in">Unable to Sign in</string>
+    <string name="sign_in_email">Sign in with email</string>
+    <string name="success_sign_in">Successfully signed in</string>
+    <string name="user_already_in">User already signed in, must sign out first</string>
+
+
+
 </resources>

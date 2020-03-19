@@ -81,7 +81,7 @@ class SetupActivity : AppCompatActivity(), Animation.AnimationListener {
     }
 
     private fun refreshBoard(board: Board) {
-        boardAdapter.refresh(board.getFieldStatus())
+        boardAdapter.refresh(board.fieldStatus)
         randomButton.visibility = View.GONE;
         manualButton.visibility = View.GONE;
     }
@@ -90,7 +90,7 @@ class SetupActivity : AppCompatActivity(), Animation.AnimationListener {
         boardAdapter =
             BoardGridAdapter(
                 this,
-                viewModel.board.getFieldStatus()
+                viewModel.board.fieldStatus
             )
             { view: View, position: Int -> handleBoardClick(view, position) }
 
