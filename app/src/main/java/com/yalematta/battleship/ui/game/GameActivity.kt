@@ -1,7 +1,6 @@
 package com.yalematta.battleship.ui.game
 
 import android.content.Intent
-import android.os.Build.BOARD
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
@@ -23,6 +22,7 @@ import com.yalematta.battleship.ui.main.MainActivity.Companion.ME_PLAYER
 import com.yalematta.battleship.ui.main.MainActivity.Companion.ROLE_NAME
 import com.yalematta.battleship.ui.main.MainActivity.Companion.ROOM_NAME
 import com.yalematta.battleship.ui.main.MainActivity.Companion.VS_PLAYER
+import com.yalematta.battleship.ui.setup.SetupActivity.Companion.BOARD
 import com.yalematta.battleship.ui.setup.SetupActivity.Companion.FLEET
 import com.yalematta.battleship.ui.setup.adapter.BoardGridAdapter
 import kotlinx.android.synthetic.main.activity_game.*

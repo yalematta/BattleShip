@@ -6,10 +6,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.yalematta.battleship.data.firebase.FirebaseSource
-import com.yalematta.battleship.data.models.Board
-import com.yalematta.battleship.data.models.Coordinate
-import com.yalematta.battleship.data.models.Player
-import com.yalematta.battleship.data.models.Role
+import com.yalematta.battleship.data.models.*
 import com.yalematta.battleship.ui.game.GameActivity.Companion.role
 
 class GameViewModel : ViewModel() {
@@ -32,6 +29,9 @@ class GameViewModel : ViewModel() {
 
     lateinit var shotBack: Coordinate
     lateinit var shotBackRef: DatabaseReference
+
+    lateinit var myFieldStatus: Array<Array<Int>>
+    lateinit var myFleet: ArrayList<Ship>
 
     var score: Int = 0
     lateinit var scoreRef: DatabaseReference

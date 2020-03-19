@@ -12,10 +12,6 @@ class Board(var boardX: Int = 10, var boardY: Int = 10,
             // 0: empty, not hit / 1: empty, but hit / 2: not empty, not hit / 3: not empty, but hit
             var fieldStatus: Array<Array<Int>> = Array(boardX) { _ -> Array(boardY) { _ -> 0} }) : Parcelable {
 
-    fun getFieldStatusItem(x: Int, y: Int): Int {
-        return fieldStatus[x][y]
-    }
-
     // Check if it's OK to place ship
     fun canPlaceShip(theShip: Ship): Boolean {
         val iterate: Iterator<Coordinate> = theShip.coords.iterator()
@@ -34,7 +30,7 @@ class Board(var boardX: Int = 10, var boardY: Int = 10,
         return true
     }
 
-    // Place the ship on the board
+    // Places a ship on the board
     @Throws(FieldOccupiedException::class)
     fun placeShip(theShip: Ship) {
         val iterate: Iterator<Coordinate> = theShip.coords.iterator()
@@ -90,7 +86,7 @@ class Board(var boardX: Int = 10, var boardY: Int = 10,
         }
     }
 
-    // Gets the name of a ship if it was destroyed. This method must be called after every shot.
+    // Gets the name of a ship if it was destroyed.
     fun getShipNameIfKill(theCoord: Coordinate): String {
         for (ship: Ship in this.fleet) {
             if (ship.noMoreShip()) {
@@ -101,7 +97,6 @@ class Board(var boardX: Int = 10, var boardY: Int = 10,
     }
 
     // Gets the points for the ship if it was destroyed, and deletes the ship from the fleet.
-    // This method must be called after every shot, and after the shipNameIfKill() method.
     fun getShipPointsIfKill(theCoord: Coordinate?): Int {
         for (i in fleet.indices) {
             if (fleet[i].noMoreShip()) {
