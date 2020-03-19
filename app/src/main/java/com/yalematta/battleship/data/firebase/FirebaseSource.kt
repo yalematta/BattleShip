@@ -9,6 +9,9 @@ class FirebaseSource {
         const val PLAYERS_TABLE: String = "players"
         const val ROOMS_TABLE: String = "rooms"
 
+        const val SHOT_SENT_BACK: String = "shot_sent_back"
+        const val SHOT_SENT: String = "shot_sent"
+        const val SCORE: String = "score"
         const val GUEST: String = "guest"
         const val HOST: String = "host"
     }

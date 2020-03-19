@@ -8,11 +8,14 @@ import com.yalematta.battleship.internal.FieldOccupiedException
 
 class SetupViewModel: ViewModel() {
 
-    var board: Board =
-        Board()
+    var board: Board = Board()
     var shipList: ArrayList<Ship> = arrayListOf()
 
-    private val player = Player("Layale", 0)
+    var myPlayer = Player("Default", 0)
+    var vsPlayer = Player("Default", 0)
+
+    var roomName: String = ""
+    var roleName: String = ""
 
     private var selectedShip: Ship? = null
     private var shipDirection = Orientation.VERTICAL
@@ -26,7 +29,7 @@ class SetupViewModel: ViewModel() {
     val blinkLiveData = MutableLiveData<View>()
 
     fun generateRandomShips() {
-        player.generateShips(board)
+        myPlayer.generateShips(board)
         refreshBoardLiveData.value = board
     }
 
@@ -65,9 +68,7 @@ class SetupViewModel: ViewModel() {
             val ship = selectedShip
 
             try {
-                player.tryPlaceShip(board, ship!!,
-                    Coordinate(x, y)
-                )
+                myPlayer.tryPlaceShip(board, ship!!, Coordinate(x, y))
 
                 shipList.remove(ship)
                 selectedShip = null

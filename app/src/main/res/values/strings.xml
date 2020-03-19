@@ -25,5 +25,10 @@
     <string name="me">Me</string>
     <string name="player">Player</string>
 
+    <string name="you_won">You Won!</string>
+    <string name="game_over">Game Over</string>
+    <string name="not_your_turn">It\'s not your turn yet!</string>
+    <string name="game_over_subtitle">Better luck next time...</string>
+    <string name="you_won_subtitle">You destroyed all the ships...</string>
 
 </resources>

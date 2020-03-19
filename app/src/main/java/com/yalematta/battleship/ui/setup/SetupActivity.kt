@@ -1,5 +1,6 @@
 package com.yalematta.battleship.ui.setup
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
@@ -10,12 +11,22 @@ import com.yalematta.battleship.R
 import com.yalematta.battleship.data.models.Board
 import com.yalematta.battleship.data.models.Ship
 import com.yalematta.battleship.internal.getViewModel
+import com.yalematta.battleship.ui.game.GameActivity
+import com.yalematta.battleship.ui.main.MainActivity.Companion.ME_PLAYER
+import com.yalematta.battleship.ui.main.MainActivity.Companion.ROLE_NAME
+import com.yalematta.battleship.ui.main.MainActivity.Companion.ROOM_NAME
+import com.yalematta.battleship.ui.main.MainActivity.Companion.VS_PLAYER
 import com.yalematta.battleship.ui.setup.adapter.BoardGridAdapter
 import com.yalematta.battleship.ui.setup.adapter.ShipListAdapter
 import kotlinx.android.synthetic.main.activity_setup.*
 import kotlinx.coroutines.*
 
 class SetupActivity : AppCompatActivity(), Animation.AnimationListener {
+
+    companion object {
+        const val BOARD = "BOARD"
+        const val FLEET = "FLEET"
+    }
 
     private lateinit var shipAdapter: ShipListAdapter
     private lateinit var boardAdapter: BoardGridAdapter
@@ -34,6 +45,12 @@ class SetupActivity : AppCompatActivity(), Animation.AnimationListener {
         initObservers()
         initBoardAdapter()
         initShipAdapter()
+
+        viewModel.roomName = intent.getStringExtra(ROOM_NAME)
+        viewModel.roleName = intent.getStringExtra(ROLE_NAME)
+
+        viewModel.myPlayer = intent.getParcelableExtra(ME_PLAYER)
+        viewModel.vsPlayer = intent.getParcelableExtra(VS_PLAYER)
 
         randomButton.setOnClickListener {
             viewModel.generateRandomShips()
@@ -54,7 +71,19 @@ class SetupActivity : AppCompatActivity(), Animation.AnimationListener {
         }
 
         startButton.setOnClickListener {
-            // TODO Show 2 Boards on Game Screen
+
+            val bundle = Bundle()
+            bundle.putString(ROOM_NAME, viewModel.roomName)
+            bundle.putString(ROLE_NAME, viewModel.roleName)
+            bundle.putParcelable(ME_PLAYER, viewModel.myPlayer)
+            bundle.putParcelable(VS_PLAYER, viewModel.vsPlayer)
+            bundle.putSerializable(BOARD, viewModel.board.fieldStatus)
+            bundle.putParcelableArrayList(FLEET, viewModel.board.fleet)
+
+            val intent = Intent(this, GameActivity::class.java)
+            intent.putExtras(bundle)
+            this.startActivity(intent)
+            finish()
         }
 
     }
@@ -165,4 +194,5 @@ class SetupActivity : AppCompatActivity(), Animation.AnimationListener {
     override fun onAnimationStart(animation: Animation?) {
 
     }
+
 }

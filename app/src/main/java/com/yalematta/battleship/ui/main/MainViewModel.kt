@@ -10,5 +10,4 @@ class MainViewModel : ViewModel() {
         val currentUser = FirebaseSource().currentUser()
         return Player(currentUser?.displayName.toString(), 0)
     }
-
 }
