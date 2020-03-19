@@ -38,6 +38,7 @@ class SetupActivity : AppCompatActivity(), Animation.AnimationListener {
         randomButton.setOnClickListener {
             viewModel.generateRandomShips()
             startButton.visibility = View.VISIBLE
+            viewModel.startGameVisibility = true
         }
 
         manualButton.setOnClickListener {
@@ -77,7 +78,13 @@ class SetupActivity : AppCompatActivity(), Animation.AnimationListener {
     }
 
     private fun updateVisibility() {
-        shipsLayout.visibility = if (viewModel.shipListVisibility) View.VISIBLE else View.GONE
+        if (!viewModel.startGameVisibility) {
+            shipsLayout.visibility = if (viewModel.shipListVisibility) View.VISIBLE else View.GONE
+            randomButton.visibility = if (viewModel.shipListVisibility) View.GONE else View.VISIBLE
+            manualButton.visibility = if (viewModel.shipListVisibility) View.GONE else View.VISIBLE
+        } else {
+            startButton.visibility = View.VISIBLE
+        }
     }
 
     private fun refreshBoard(board: Board) {
@@ -109,6 +116,7 @@ class SetupActivity : AppCompatActivity(), Animation.AnimationListener {
         if (viewModel.isShipListEmpty()) {
             rotateButton.visibility = View.GONE
             startButton.visibility = View.VISIBLE
+            viewModel.startGameVisibility = true
         }
     }
 

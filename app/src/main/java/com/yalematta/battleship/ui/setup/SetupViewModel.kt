@@ -18,6 +18,7 @@ class SetupViewModel: ViewModel() {
     private var shipDirection = Orientation.VERTICAL
 
     var shipListVisibility = false
+    var startGameVisibility = false
 
     val refreshBoardLiveData = MutableLiveData<Board>()
     val refreshShipsLiveData = MutableLiveData<ArrayList<Ship>>()
