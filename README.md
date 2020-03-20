@@ -1,6 +1,7 @@
-# BattleShip
+# BattleShip in Kotlin
  
 This project aims to develop a Battleship game using Kotlin programming language.
+
 BattleShip is a board game where to win you have to be the first to sink all 5 ships of your opponent's ships.
 
 ## Getting Started
