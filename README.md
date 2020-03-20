@@ -30,9 +30,9 @@ Use the following rules for the Database so only authenticated users can access/
 - Object Oriented approach, developing 'real world' entities such as Player, Board, Fleet of Ships, Score etc.
 - Model-View-ViewModel design pattern to separate concerns between the View, the Data and the Logic.
 - Data Structures: 
-  .The Board is a two-dimensional array which elements can be accessed by their x and y coordinates.
-  .The Group of Ships (the fleet) is a arrayList in the Board class.
-  .etc.
+  - The Board is a two-dimensional array which elements can be accessed by their x and y coordinates.
+  - The Group of Ships (the fleet) is a arrayList in the Board class.
+  etc.
 
 ### Screens in this project
 - MainActivity to welcome the Player
