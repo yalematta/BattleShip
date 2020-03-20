@@ -43,8 +43,8 @@ Use the following rules for the Database so only authenticated users can access/
 - GameActivity to shoot on the opponent's board
 
 
-  
-
+![Placing your ships](/screenshots/SetupActivity.jpeg)
+![Playing the game](/screenshots/GameActivity.jpeg)
 
 
 
