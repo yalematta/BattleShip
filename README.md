@@ -42,8 +42,5 @@ Use the following rules for the Database so only authenticated users can access/
 - SetupActivity to place the ships on the Board (Randomly or Manually)
 - GameActivity to shoot on the opponent's board
 
-
-![Placing your ships]() ![Playing the game](/screenshots/GameActivity.jpeg)
-
 <img src="/screenshots/MainActivity.jpeg" width="200"/> <img src="/screenshots/RoomsActivity.jpeg" width="200"/> <img src="/screenshots/SetupActivity.jpeg" width="200"/> <img src="/screenshots/GameActivity.jpeg" width="200"/>
 
