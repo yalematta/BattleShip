@@ -37,7 +37,7 @@ Use the following rules for the Database so only authenticated users can access/
 ### Screens in this project
 - MainActivity to welcome the Player
 - LoginActivity to login using Email/Password (using Firebase Auth and Firebase-UI)
-- RoomsActivity to choose between creating a Room + waiting for the second player, or choosing a Room + joining a player
+- RoomsActivity to create a Room + wait for the second player, or choose a Room + join a player
 - SetupActivity to place the ships on the Board (Randomly or Manually)
 - GameActivity to shoot on the opponent's board
 
