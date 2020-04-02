@@ -44,3 +44,11 @@ Use the following rules for the Database so only authenticated users can access/
 
 <img src="/screenshots/MainActivity.jpeg" width="200"/> <img src="/screenshots/RoomsActivity.jpeg" width="200"/> <img src="/screenshots/SetupActivity.jpeg" width="200"/> <img src="/screenshots/GameActivity.jpeg" width="200"/>
 
+### Improvements to be done
+- Ship Model should not handle coordinates / have them handled in the Board or by a ShipCaptain
+- Create a separate DatabaseStore Class to handle all things Firebase related
+- Use LiveData and don't expose MutableLiveData to the SetupActivity
+- Have a Game/Room Model that handles the two players 
+- Remove uneccessary functions in Orientation Enum
+- Add a ViewModel to the RoomsActivity 
+- Adjust Layouts on Tablet
