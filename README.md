@@ -4,6 +4,15 @@ This project aims to develop a Battleship game using Kotlin programming language
 
 BattleShip is a board game where to win you have to be the first to sink all 5 ships of your opponent's ships.
 
+## Screens in this project
+- MainActivity to welcome the Player
+- LoginActivity to login using Email/Password (using Firebase Auth and Firebase-UI)
+- RoomsActivity to create a Room + wait for the second player, or choose a Room + join a player
+- SetupActivity to place the ships on the Board (Randomly or Manually)
+- GameActivity to shoot on the opponent's board
+
+<img src="/screenshots/MainActivity.jpeg" width="200"/> <img src="/screenshots/RoomsActivity.jpeg" width="200"/> <img src="/screenshots/SetupActivity.jpeg" width="200"/> <img src="/screenshots/GameActivity.jpeg" width="200"/>
+
 ## Getting Started
 
 If you've forked a copy of this Repo, don't forget to:
@@ -20,6 +29,7 @@ Use the following rules for the Database so only authenticated users can access/
   }
 }
 ```
+
 ### Features implemented in this project
 - Manual Ship Placing
 - Random Ship Placing
@@ -34,15 +44,6 @@ Use the following rules for the Database so only authenticated users can access/
   - The Board is a two-dimensional array which elements can be accessed by their x and y coordinates.
   - The Group of Ships (the fleet) is a arrayList in the Board class.
   etc.
-
-### Screens in this project
-- MainActivity to welcome the Player
-- LoginActivity to login using Email/Password (using Firebase Auth and Firebase-UI)
-- RoomsActivity to create a Room + wait for the second player, or choose a Room + join a player
-- SetupActivity to place the ships on the Board (Randomly or Manually)
-- GameActivity to shoot on the opponent's board
-
-<img src="/screenshots/MainActivity.jpeg" width="200"/> <img src="/screenshots/RoomsActivity.jpeg" width="200"/> <img src="/screenshots/SetupActivity.jpeg" width="200"/> <img src="/screenshots/GameActivity.jpeg" width="200"/>
 
 ### Improvements to be done
 - Ship Model should not handle coordinates / have them handled in the Board or by a ShipCaptain
