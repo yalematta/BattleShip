@@ -1,10 +1,11 @@
 # BattleShip in Kotlin
- 
+
 This project aims to develop a Battleship game using Kotlin programming language.
 
 BattleShip is a board game where to win you have to be the first to sink all 5 ships of your opponent's ships.
 
 ## Screens in this project
+
 - MainActivity to welcome the Player
 - LoginActivity to login using Email/Password (using Firebase Auth and Firebase-UI)
 - RoomsActivity to create a Room + wait for the second player, or choose a Room + join a player
@@ -21,6 +22,7 @@ If you've forked a copy of this Repo, don't forget to:
 3. Enable Firebase Realtime Database.
 
 Use the following rules for the Database so only authenticated users can access/write data:
+
 ```json
 {
   "rules": {
@@ -31,13 +33,15 @@ Use the following rules for the Database so only authenticated users can access/
 ```
 
 ### Features implemented in this project
+
 - Manual Ship Placing
 - Random Ship Placing
 - Play Live
 - Two-player
 - Basic Graphics
 
-### Designed the project using:
+### Designed the project using
+
 - Object Oriented approach, developing 'real world' entities such as Player, Board, Fleet of Ships, Score etc.
 - Model-View-ViewModel design pattern to separate concerns between the View, the Data and the Logic.
 - Data Structures: 
@@ -46,6 +50,7 @@ Use the following rules for the Database so only authenticated users can access/
   etc.
 
 ### Improvements to be done
+
 - Ship Model should not handle coordinates / have them handled in the Board or by a ShipCaptain
 - Create a separate DatabaseStore Class to handle all things Firebase related
 - Use LiveData and don't expose MutableLiveData to the SetupActivity
