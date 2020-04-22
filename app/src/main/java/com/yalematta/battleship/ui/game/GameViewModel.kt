@@ -143,5 +143,4 @@ class GameViewModel(var roomName: String, var roleName: String, var myPlayer: Pl
 
         refreshOpponentBoardLiveData.value = opponentBoard
     }
-
 }
